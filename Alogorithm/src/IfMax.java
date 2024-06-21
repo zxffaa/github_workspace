@@ -1,0 +1,24 @@
+//정수 3개입력 최대값 찾기
+
+import java.util.Scanner;
+
+public class IfMax {
+	public static void main(String[] args) {
+		Scanner scn = new Scanner(System.in);
+		System.out.print("3개의 정수입력:");
+		int a = scn.nextInt();
+		int b = scn.nextInt();
+		int c = scn.nextInt();
+		
+		//첫번째 데이터는 최대값
+		int max = a;
+		if(max < b) {
+			max=b;
+		}
+		if(max < c) {
+			max=c;
+		}
+		System.out.printf("%d, %d, %d max=%d", a,b,c,max);
+	}
+
+}

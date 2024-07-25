@@ -111,4 +111,27 @@ public class MemberDAO {
 		}
 		return row;
 	}
+	public int custnoMax() {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		//반환타입
+		int row = 0;
+		//쿼리문장
+		String sql="select max(custno)+1 as custno from tbl_member";
+		
+		try{
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				row = rs.getInt("custno");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return row;
+	}
+
 }

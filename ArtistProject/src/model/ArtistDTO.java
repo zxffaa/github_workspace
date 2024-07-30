@@ -11,6 +11,21 @@ public class ArtistDTO {
 	private String MEMTO_NAME;
 	private int SERIAL_NO;
 	private int POINT;
+	private int ALLADD;
+	private double ALLAVG;
+	
+	public int getALLADD() {
+		return ALLADD;
+	}
+	public void setALLADD(int aLLADD) {
+		ALLADD = aLLADD;
+	}
+	public double getALLAVG() {
+		return ALLAVG;
+	}
+	public void setALLAVG(double aLLAVG) {
+		ALLAVG = aLLAVG;
+	}
 	public String getARTIST_ID() {
 		return ARTIST_ID;
 	}

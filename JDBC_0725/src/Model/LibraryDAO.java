@@ -110,5 +110,27 @@ public class LibraryDAO {
 		}
 		return row;
 	}
-	
+	public int UserSerch(LibraryDTO in) {
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql="select count(*) as serch from Library where userno=?";
+		int row=1;
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, in.getUserno());
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				sql="select * from library where userno=?";
+				pstmt.setInt(1,in.getUserno());
+				rs=pstmt.executeQuery();
+			}else {
+				row=-1;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return row;
+	}
 }

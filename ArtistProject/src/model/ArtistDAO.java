@@ -135,4 +135,89 @@ public class ArtistDAO {
 		}
 		return list;
 	}
+	public int pointModitfy(ArtistDTO IN) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = "update tbl_point_201905 set point=? where serial_no=?";
+		int row = 0;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, IN.getPOINT());
+			pstmt.setInt(2, IN.getSERIAL_NO());
+			row = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return row;
+	}
+	public int SerchDelete01(ArtistDTO IN) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = "delete from TBL_POINT_201905 where ARTIST_ID=?";
+		int row = 0;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, IN.getARTIST_ID());
+			row = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return row;
+	}
+	public int SerchDelete02(ArtistDTO IN) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = "delete from TBL_ARTIST_201905 where ARTIST_ID=?";
+		int row = 0;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, IN.getARTIST_ID());
+			row = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return row;
+	}
+	public int SerchDelete03(ArtistDTO IN) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = "delete from TBL_POINT_201905 where serial_no=?";
+		int row = 0;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,IN.getSERIAL_NO());
+			row = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return row;
+	}
+	public List<ArtistDTO> FinalList() {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<ArtistDTO> list = new ArrayList<ArtistDTO>();
+		String sql = "select a.artist_id, a.artist_name, a.artist_gender,sum(b.point) as ALLADD,round(avg(b.point),2) as ALLAVG from TBL_ARTIST_201905 a,TBL_POINT_201905 b where a.ARTIST_id=b.ARTIST_id group by a.artist_id,a.artist_name,a.artist_gender order by sum(b.point) desc";
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				ArtistDTO Score =new ArtistDTO();
+				Score.setARTIST_ID(rs.getString("artist_id"));
+				Score.setARTIST_NAME(rs.getString("artist_name"));
+				Score.setARTIST_GENDER(rs.getString("ARTIST_GENDER"));
+				Score.setALLADD(rs.getInt("ALLADD"));
+				Score.setALLAVG(rs.getDouble("ALLAVG"));
+				list.add(Score);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 }

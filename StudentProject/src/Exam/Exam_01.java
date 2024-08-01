@@ -10,7 +10,7 @@ public class Exam_01 {
 	public static void main(String[] args) {
 		StudentDAO dao=new StudentDAO();
 		StudentDTO dto=new StudentDTO();
-		List<StudentDTO> In=dao.ShowStudent();
+		
 		Scanner input=new Scanner(System.in);
 
 		System.out.print("학생등록 화면\n");
@@ -31,6 +31,7 @@ public class Exam_01 {
 		dto.setTel2(input.next());
 		dto.setTel3(input.next());
 		int row=dao.Student_Insert(dto);
+		List<StudentDTO> In=dao.ShowStudent();
 		System.out.println();
 		System.out.print("학년\t반\t번호\t이름\t생년월일\t\t성별\t전화1\t전화2\t전화3\n");
 		if(row==1) {

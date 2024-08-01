@@ -16,10 +16,28 @@ public class StudentDTO {
 	private int mat;
 	private int add;
 	private double avg;
+	private double KORAVG;
+	private double ENGAVG;
+	private double MATAVG;
 	
-	
-	
-	
+	public double getKORAVG() {
+		return KORAVG;
+	}
+	public void setKORAVG(double kORAVG) {
+		KORAVG = kORAVG;
+	}
+	public double getENGAVG() {
+		return ENGAVG;
+	}
+	public void setENGAVG(double eNGAVG) {
+		ENGAVG = eNGAVG;
+	}
+	public double getMATAVG() {
+		return MATAVG;
+	}
+	public void setMATAVG(double mATAVG) {
+		MATAVG = mATAVG;
+	}
 	public int getAdd() {
 		return add;
 	}

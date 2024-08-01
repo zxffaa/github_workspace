@@ -144,4 +144,65 @@ public class StudentDAO {
 		}
 		return row;
 	}
+	public List<StudentDTO> StudentScoreShow(){
+		List<StudentDTO> list=new ArrayList<StudentDTO>();
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int add=0;
+		double avg=0;
+		String sql="select a.syear,a.sclass,a.sno,a.sname,a.gender,b.kor,b.eng,b.mat from tbl_student_201905 a, tel_score_201905 b where a.syear = b.syear and a.sclass=b.sclass and a.sno=b.sno";
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				StudentDTO all=new StudentDTO();
+				all.setSyear(rs.getString("syear"));
+				all.setSclass(rs.getString("sclass"));
+				all.setSno(rs.getString("sno"));
+				all.setSname(rs.getString("sname"));
+				all.setGender(rs.getString("gender"));
+				all.setKor(rs.getInt("kor"));
+				all.setEng(rs.getInt("eng"));
+				all.setMat(rs.getInt("mat"));
+				add=rs.getInt("kor")+rs.getInt("eng")+rs.getInt("mat");
+				avg=Math.round(add/3.0);
+				all.setAdd(add);
+				all.setAvg(avg);
+				list.add(all);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	public List<StudentDTO> EachClassAVG(){
+		List<StudentDTO> list=new ArrayList<StudentDTO>();
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql="select a.syear,a.sclass,a.tname,sum(b.kor) as kor,sum(b.eng) as eng,sum(b.mat) as mat,avg(b.kor) as koravg,avg(b.eng) as engavg,avg(b.mat) as matavg from tbl_dept_201905 a, tel_score_201905 b where a.sclass=b.sclass GROUP BY a.sclass,a.syear,a.tname ORDER BY a.sclass";
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				StudentDTO all=new StudentDTO();
+				all.setSyear(rs.getString("syear"));
+				all.setSclass(rs.getString("sclass"));
+				all.setTname(rs.getString("tname"));
+				all.setKor(rs.getInt("kor"));
+				all.setEng(rs.getInt("eng"));
+				all.setMat(rs.getInt("mat"));
+				all.setKORAVG(rs.getDouble("koravg"));
+				all.setENGAVG(rs.getDouble("engavg"));
+				all.setMATAVG(rs.getDouble("matavg"));
+				list.add(all);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 }

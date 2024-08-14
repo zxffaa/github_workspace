@@ -26,6 +26,11 @@ table td.textareas {
 </style>
 <script>
 function send() {
+	alert("사원을 수정합니다");
+
+	frm.action="memberModify.jsp"
+	frm.submit();
+
 	if(frm.custno.value==""){
 		alert("회원번호 입력해주세요");
 		frm.custno.focus();
@@ -64,6 +69,7 @@ function send() {
         alert("고객등급을 선택하세요");
         return;
     }
+	alert("등록되었습니다");
 	frm.submit();
 }
 function cancel() {
@@ -73,7 +79,7 @@ function cancel() {
 <body>
 	<div align="center">
 		<form name="frm" action="memberInsert_pro.jsp">
-			<h1>회원등록</h1>
+			<h1>회원수정</h1>
 			<table>
 				<tr>
 					<th>회원번호(자동발생)</th>
@@ -127,6 +133,7 @@ function cancel() {
 				<th colspan="2">
 				<input type="button" onclick="send()" value="등록하기">
 				<input type="button" value="다시쓰기" onclick="cancel">
+				<a href="index.jsp"><input type="button" value="홈으로"></a>
 				</th>
 				</tr>
 			</table>

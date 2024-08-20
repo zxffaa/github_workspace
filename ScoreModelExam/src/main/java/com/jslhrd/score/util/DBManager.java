@@ -1,4 +1,4 @@
-package com.jslhrd.shop.util;
+package com.jslhrd.score.util;
 import java.sql.*;
 public class DBManager {
 	public static Connection getConnection() {

@@ -38,6 +38,25 @@ public class GuestDAO {
 		return cnt;
 	}
 
+	public int GuestCount(String search,String key) {
+		int cnt = 0;
+		String sql = "select count(*) from tbl_guest where "+search+" like ? ";
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+key+"%");
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				cnt = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt, rs);
+		}
+		return cnt;
+	}
+	
 	public List<GuestDTO> GuestList() {
 		List<GuestDTO> list = new ArrayList<GuestDTO>();
 		String sql="select * from tbl_guest order by idx desc";
@@ -62,6 +81,33 @@ public class GuestDAO {
 		}
 		return list;
 	}
+	
+	public List<GuestDTO> GuestList(String search,String key) {
+		List<GuestDTO> list = new ArrayList<GuestDTO>();
+		String sql="select * from tbl_guest where "+search+" like ? order by idx desc";
+		try {
+			conn=DBManager.getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+key+"%");
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				GuestDTO guest=new GuestDTO();
+				guest.setIdx(rs.getInt("idx"));
+				guest.setName(rs.getString("name"));
+				guest.setSubject(rs.getString("subject"));
+				guest.setContents(rs.getString("contents"));
+				guest.setRegdate(rs.getString("regdate"));
+				guest.setReadcnt(rs.getInt("readcnt"));
+				list.add(guest);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBManager.close(conn, pstmt, rs);
+		}
+		return list;
+	}
+	
 	public int GuestWrite(GuestDTO dto) {
 
 		int row = 0;//반환타입

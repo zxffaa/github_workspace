@@ -4,8 +4,30 @@
 	int idx = Integer.parseInt(request.getParameter("idx"));
 
 	BoardDAO dao = BoardDAO.getInstance();
-	//조회수 증가
-	dao.boardHits(idx);
+	//쿠키검사 board+idx
+	boolean found = false;
+	Cookie info =null;
+	Cookie[] cookies=request.getCookies();
+	//쿠키 존재유무 검사
+	for(int i=0; i<cookies.length;i++){
+		info=cookies[i];
+		if(info.getName().equalsIgnoreCase("board"+idx)){
+			found=true;
+			break;
+		}
+	}
+	//쿠키값 만들기
+	String newValue=""+System.currentTimeMillis();
+	if(!found){//쿠키가 존재하지 않으면
+		//조회수 증가
+		dao.boardHits(idx);
+		//쿠키생성 전송
+		info=new Cookie("board"+idx,newValue);
+		info.setMaxAge(24*60*60);//24시간(1일)
+		//60*60(1시간)
+		response.addCookie(info);
+	}
+	
 	
 	BoardDTO dto = dao.boardSelect(idx);
 	

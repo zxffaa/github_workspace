@@ -2,10 +2,25 @@
 <%@ page import="com.jslhrd.guest.model.*" %>
 <%
 	int idx = Integer.parseInt(request.getParameter("idx"));
-
 	GuestDAO dao= GuestDAO.getInstance();
+	boolean found=false;
+	Cookie info=null;
+	Cookie[] cookies=request.getCookies();
+	for(int i=0;i<cookies.length;i++){
+		info=cookies[i];
+		if(info.getName().equals("guest"+idx)){
+			found=true;
+			break;
+		}
+	}
+	String newValue=""+System.currentTimeMillis();
 	//조회수 증가
-	dao.GuestHits(idx);
+	if(!found){
+		dao.GuestHits(idx);
+		info=new Cookie("guest"+idx,newValue);
+		info.setMaxAge(24*60*60);
+		response.addCookie(info);
+	}
 	GuestDTO dto=dao.GuestSelect(idx);
 	
 %>

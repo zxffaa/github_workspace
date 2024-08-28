@@ -3,7 +3,19 @@
 <% 
 	GuestDAO dao=GuestDAO.getInstance();
 	int cnt=dao.GuestCount();
-	List<GuestDTO>list=dao.GuestList();
+	String search="",key="";
+	int totCnt=0;
+	List<GuestDTO>list=null;
+	if(request.getParameter("key")!=null){
+		search= request.getParameter("search");
+		key=request.getParameter("key");
+		totCnt=dao.GuestCount(search, key);
+		list =dao.GuestList(search, key);
+	}else{
+		totCnt=dao.GuestCount();
+		list=dao.GuestList();
+	}
+			
 %>
 <html>
 <head><title>방명록 읽기</title>
@@ -77,18 +89,18 @@
 			<td width="25%"> &nbsp;</td>
 			<td width="50%" align="center">
 				<table>
-					<form>	
+					<form name="gSearch" post="method" action="guest_list.jsp">	
 					<!-- 검색어를 이용하여 글제목, 작성자, 글내용 중에 하나를 입력 받아 처리하기 위한 부분 -->
 						<tr>
 							<td>
-								<select name="">
-									<option value="">글제목</option>
-									<option value="">작성자</option>
-									<option value="">글내용</option>
+								<select name="search">
+									<option value="subject" <% if(search.equals("subject")){ %> selected <% } %>>글제목</option>
+									<option value="name" <% if(search.equals("name")){ %> selected <% } %>>작성자</option>
+									<option value="contents" <% if(search.equals("contents")){ %> selected <% } %>>글내용</option>
 								</select>
 							</td>
-							<td> <input type="text" size=20 name=""></td>
-							<td> <a href="#"><img src="./img/search2.gif" border="0"></a></td>
+							<td> <input type="text" size=20 name="key" value="<%= key %>"></td>
+							<td> <a href="#" onclick="Search()"><img src="./img/search2.gif" border="0"></a></td>
 						</tr>
 					</form>
 				</table>

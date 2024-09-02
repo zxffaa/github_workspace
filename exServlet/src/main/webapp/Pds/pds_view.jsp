@@ -1,12 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ page import="java.util.*, com.jslhrd.pds.model.*" %>
-<% 
 
-int idx = Integer.parseInt(request.getParameter("idx"));
-
-PdsDAO dao= PdsDAO.getInstance();
-PdsDTO dto=dao.PdsSelect(idx);
-%>
 <html>
    <head>
       <title> 게시판 내용 보기 </title>
@@ -41,34 +34,27 @@ PdsDTO dto=dao.PdsSelect(idx);
        <tr bgcolor="e3e9ff">
          <td class="title">
            <img src="./img/bullet-04.gif">   
-           <font size="2" face="돋움"><%= dto.getSubject() %>
+           <font size="2" face="돋움">좋은 하루 되세요
            </font></td></tr>
 		<tr>  
 			<td class="content">
-				<p align="right"><font size="2" face="돋움"><%= dto.getName() %> / <%= dto.getRegdate() %> / <%= dto.getReadcnt() %>번 읽음
-			    <p><%= dto.getContents().replace("\n", "<br>") %></p>
-			<% if(dto.getFilename() != null) { %>	
-				<img src="./img/disk.gif" align="middle" width="22" height="20" border="0">&nbsp;
-				<a href="upload/<%= dto.getFilename() %>"><%= dto.getFilename() %></a>
-			<% } %>	
-				</font>
+				<p align="right"><font size="2" face="돋움">  길동 / 2007-10-11 / 2번 읽음
+			    <p>언제나 즐겁고 행복한 하루가 되었으면 합니다.<br>
+				항상 노력하는 자 만이 성공할 수 있다.<p>
+				<img src="./img/disk.gif" align="middle" width="22" height="20" border="0">&nbsp;test.zip</font>
 			</td>
 		</tr>
 	  </table>
 	  <p align="center">
 	  <font size="2">
-	  	<!-- 수정 -->
-		<a href="pds_modify.jsp?idx=<%=idx%>"><img src="./img/edit-1.gif" border="0"></a>&nbsp;&nbsp;&nbsp;&nbsp;
-		<!-- 삭제 -->
-		<a href="pds_delete.jsp?idx=<%=idx%>"><img src="./img/del.gif" border="0"></a>&nbsp;&nbsp;&nbsp;&nbsp;
-		<!-- 목록 -->
-		<a href="pds_list.jsp"><img src="./img/list-2.gif" border="0"></a>
+		<img src="./img/edit-1.gif" border="0">&nbsp;&nbsp;&nbsp;&nbsp;
+		<img src="./img/del.gif" border="0">&nbsp;&nbsp;&nbsp;&nbsp;
+		<img src="./img/list-2.gif" border="0">
 	  </font>
      </td>
   </tr>  
 </table>  
 </body>  
 </html>
-
 
 

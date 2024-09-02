@@ -5,39 +5,41 @@
 <title>자료 올리기</title>
 <script>
 	function send() {
-		if(pds.name.value==""){
-			alert("이름을 입력해주세여");
+		if (pds.name.value == "") {
+			alert("작성자이름을 입력하세요");
 			pds.name.focus();
 			return;
 		}
-		if(pds.subject.value==""){
-			alert("제목을 입력해주세여");
+		if (pds.subject.value == "") {
+			alert("제목을 입력하세요");
 			pds.subject.focus();
 			return;
 		}
-		if(pds.contents.value==""){
-			alert("내용을 입력해주세여");
+		if (pds.contents.value == "") {
+			alert("내용을 입력하세요");
 			pds.contents.focus();
 			return;
 		}
-		if(pds.pass.value==""){
-			alert("비밀번호을 입력해주세여");
+		if (!pds.pass.value) {
+			alert("비밀번호을 입력하세요");
 			pds.pass.focus();
 			return;
 		}
-		//파일용량 제한
-		var size=pds.filename.files[0].size;
-		//파일 용량 계산 2MB=2*1024*1024
-		if(pds.filename.value){
-			if(size>(2*1024*1024)){
-				alert("파일용량은 2M를 초과할수 없습니다.");
-				pds.filename.focus();
+		//파일용량제한
+		if (pds.filename.value) {//파일 선택시
+			var size = pds.filename.files[0].size;
+			if (size > (2 * 1024 * 1024)) { // 파일용량이 2M 초과시
+				alert("파일용량은 2M을 초과할수 없습니다.");
+				pds.filename.focus()
 				return;
-			}	
+			}
 		}
+
 		pds.submit();
 	}
 </script>
+
+
 </head>
 <body>
 	<link rel="stylesheet" type="text/css" href="stylesheet.css">
@@ -56,7 +58,8 @@
 						color="orange"> 잠깐</font> &nbsp; <img src="./img/bullet-02.gif"><font
 						size="2" face="돋움">는 필수 입력 사항입니다.</font>
 				<p>
-				<form name="pds" method="post" enctype="multipart/form-data" action="pds_write_pro.jsp">
+				<form name="pds" method="post" enctype="multipart/form-data"
+					action="pds_write_pro.jsp">
 					<table border="0">
 						<tr>
 							<td width="5%" align="right"><img src="./img/bullet-02.gif"></td>
@@ -91,7 +94,6 @@
 							<td><input type="password" size="10" name="pass"> <font
 								size="2" face="돋움">*.게시글의 수정 및 삭제시 필요.</font></td>
 						</tr>
-
 						<tr></tr>
 						<tr></tr>
 						<td align="right">&nbsp;</td>

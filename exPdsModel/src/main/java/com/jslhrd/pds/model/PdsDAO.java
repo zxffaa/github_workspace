@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import com.jslhrd.pds.util.DBManager;
 
 public class PdsDAO {
@@ -104,7 +103,7 @@ public class PdsDAO {
 			if(rs.next()) {
 				dto.setIdx(rs.getInt("idx"));
 				dto.setName(rs.getString("name"));
-				dto.setPass(rs.getString("pass"));
+				//dto.setPass(rs.getString("pass"));
 				dto.setEmail(rs.getString("email"));
 				dto.setSubject(rs.getString("subject"));
 				dto.setContents(rs.getString("contents"));
@@ -120,5 +119,86 @@ public class PdsDAO {
 		return dto;
 	}
 	
+	public void PdsHits(int idx) {
+		
+		String sql="update tbl_pds set readcnt=readcnt+1 where idx=?";
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBManager.close(conn, pstmt);
+		}
+	}
 	
+	public int pdsModify(PdsDTO dto) {
+		int row=0;
+		String sql="update tbl_pds set email=?,subject=?, contents=?, filename=? where idx=? and pass=?";
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getEmail());
+			pstmt.setString(2, dto.getSubject());
+			pstmt.setString(3, dto.getContents());
+			pstmt.setString(4, dto.getFilename());
+			pstmt.setInt(5, dto.getIdx());
+			pstmt.setString(6, dto.getPass());
+			row = pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBManager.close(conn, pstmt);
+		}
+		return row;
+	}
+	
+	public int pdsDelete(int idx, String pass) {
+		int row=0;
+		
+		String sql="delete from tbl_pds where idx=? and pass=?";
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			pstmt.setString(2, pass);
+			
+			row = pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBManager.close(conn, pstmt);
+		}
+		return row;
+	}
+
+	
+	public String pdsFileSearch(int idx) {
+		//리터타입
+		String filename = null;
+		//쿼리
+		String query="select filename from tbl_pds where idx=?";
+		
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, idx);
+
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				filename = rs.getNString("filename");
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBManager.close(conn, pstmt);
+		}
+		return filename;
+	}
+
 }

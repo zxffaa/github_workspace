@@ -1,8 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page import="java.util.*, com.jslhrd.exservlet.model.board.*" %>
+
 <%@ include file="/Include/topmenu.jsp" %>
-<%@ page import="java.util.*,com.jslhrd.exservlet.model.board.*"%>
-<% 
-	List<BoardDTO> list=(List)request.getAttribute("list");
+
+<%
+	int totcount = (int)request.getAttribute("totcount");
+	List<BoardDTO> list = (List)request.getAttribute("list");
+	String search=(String)request.getAttribute("search");
+	String key=(String)request.getAttribute("key");
 %>
 <html>
 <head><title>게시판 읽기</title>
@@ -28,7 +33,7 @@
       <tr>
         <td colspan="7" align="center" valign="center" height="20">
         <font size="4" face="돋움" color="blue">
-        <img src="/Board/img/bullet-01.gif"> <b>자 유 게 시 판</b></font></td></tr>
+        <img src="./img/bullet-01.gif"> <b>자 유 게 시 판</b></font></td></tr>
       <tr>
         <td colspan="5" align="right" valign="middle" height="20">
 		<font size="2" face="고딕">전체 : <b>${totcount}</b>건 - 1/ 2 Pages</font></td></tr>
@@ -39,31 +44,30 @@
  	      <td width="15%" align="center" height="20"><font face="돋움" size="2">작성일</font></td>
  	      <td width="10%" align="center" height="20"><font face="돋움" size="2">조회수</font></td>
  	   </tr>
-<% 
+<%
 	if(list.size()==0){
 %>
 		<tr onMouseOver="style.backgroundColor='#D1EEEE'" onMouseOut="style.backgroundColor=''">
-			<td align="center" height="25" cols="5">
-			<font face="돋움" size="2" color="#000000">등록된 자료 없음</font></td>
-			
+			<td align="center" height="25" colspan="5">
+			<font face="돋움" size="2" color="#000000">등록된 자료 없음</font>
+			</td>
 		</tr>
-<% 
+<%
 	}
-	for(BoardDTO dto:list){
-%>
+	for(BoardDTO dto : list) {
+%>		
 		<tr onMouseOver="style.backgroundColor='#D1EEEE'" onMouseOut="style.backgroundColor=''">
 			<td align="center" height="25">
-			<font face="돋움" size="2" color="#000000"><%=dto.getIdx()%></font></td>
+			<font face="돋움" size="2" color="#000000"><%= dto.getIdx() %></font></td>
 			<td align="left" height="20">&nbsp;
 				<font face="돋움" size="2" color="#000000">
-				<a class="list" href=""><%=dto.getSubject()%></a></td>
+				<a class="list" href="board_view?idx=<%=dto.getIdx()%>"><%= dto.getSubject() %></a></td>
 					<td align="center" height="20"><font face="돋움" size="2">
-					<a class="list" href="mailto:ein1027@nate.com"><%=dto.getName()%></a></font></td>
-				<td align="center" height="20"><font face="돋움" size="2"><%=dto.getRegdate().substring(0, 10) %></font></td>
-				<td align="center" height="20"><font face="돋움" size="2">
-				3</font></td>
+					<a class="list" href="mailto:ein1027@nate.com"><%= dto.getName() %></a></font></td>
+				<td align="center" height="20"><font face="돋움" size="2"><%= dto.getRegdate().substring(0,10) %></font></td>
+				<td align="center" height="20"><font face="돋움" size="2"><%= dto.getReadcnt() %></font></td>
 		</tr>
-<% 
+<%
 	}
 %>
 
@@ -92,13 +96,13 @@
 								</select>
 							</td>
 							<td> <input type="text" size=20 name=""></td>
-							<td> <a href="#"><img src="/Board/img/search2.gif" border="0"></a></td>
+							<td> <a href=""><img src="./img/search2.gif" border="0"></a></td>
 						</tr>
 					</form>
 				</table>
 			</td>
 			<td width="25%" align="right">
-			<a href="board_write"><img src="/Board/img/write.gif" border="0"></a>
+			<a href="board_write"><img src="./img/write.gif" border="0"></a>
 			</td>
 		</tr>
 	</table>
@@ -106,4 +110,3 @@
 </html>
 
 <%@ include file="/Include/copyright.jsp" %>
-

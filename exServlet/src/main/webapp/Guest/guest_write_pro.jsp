@@ -3,20 +3,20 @@
 
 <%
 	int row = (int)request.getAttribute("row");
-
+	
 	if(row==1){
 %>
 	<script>
-		alert("등록되었습니다.");
-		location.href="board_list";
-	</script>	
+		alert("등록되었습니다");
+		location.href="guest_list";
+	</script>
 <%
 	}else{
 %>	
 	<script>
-		alert("등록실패");
+		alert("등록실패 \n 다름에 다시 .......");
 		history.back();
-	</script>	
+	</script>
 <%
 	}
 %>

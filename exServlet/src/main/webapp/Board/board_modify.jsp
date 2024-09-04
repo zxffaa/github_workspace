@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+
 <%@ include file="/Include/topmenu.jsp" %>
+
    <head><title>게시판 수정</title>
     <link rel="stylesheet" type="text/css" href="/stylesheet.css">
 
@@ -11,7 +13,8 @@
    <td width="20%" height="500" bgcolor="#ecf1ef" valign="top">
 
    <!-- 다음에 추가할 부분 "-->
-<%@ include file="/Include/login_form.jsp" %>
+	<%@ include file="/Include/login_form.jsp" %>
+	
    </td>
    <td width="80%" valign="top">&nbsp;<br>
      <img src="./img/bullet-01.gif"><font size="3" face="돋움" color="blue"> <b>자 유 게 시 판</b></font>
@@ -60,4 +63,5 @@
   </table>
   </body>
   </html>
-<%@ include file="/Include/copyright.jsp" %>
+  
+  <%@ include file="/Include/copyright.jsp" %>

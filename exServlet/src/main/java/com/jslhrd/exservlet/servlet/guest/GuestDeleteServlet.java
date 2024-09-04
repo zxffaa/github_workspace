@@ -1,4 +1,4 @@
-package com.jslhrd.exservlet.servlet.board;
+package com.jslhrd.exservlet.servlet.guest;
 
 import java.io.IOException;
 
@@ -9,20 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jslhrd.exservlet.model.board.BoardDAO;
-import com.jslhrd.exservlet.model.board.BoardDTO;
+import com.jslhrd.exservlet.model.guest.GuestDAO;
 
 /**
- * Servlet implementation class BoardWriteServlet
+ * Servlet implementation class GuestDeleteServlet
  */
-@WebServlet("/board_write")
-public class BoardWriteServlet extends HttpServlet {
+@WebServlet("/guest_delete")
+public class GuestDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardWriteServlet() {
+    public GuestDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,46 +30,33 @@ public class BoardWriteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-	
+		int idx = Integer.parseInt(request.getParameter("idx"));
+		
+		request.setAttribute("idx", idx);
+		
 		RequestDispatcher rd = 
-				request.getRequestDispatcher("Board/board_write.jsp");
+				request.getRequestDispatcher("Guest/guest_delete.jsp");
 		rd.forward(request, response);
-
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
 		
-		BoardDAO dao = BoardDAO.getInstance();
-		BoardDTO dto = new BoardDTO();
+		int idx = Integer.parseInt(request.getParameter("idx"));
+		String pass = request.getParameter("pass");
 		
-		dto.setName(request.getParameter("name"));
-		dto.setEmail(request.getParameter("email"));
-		dto.setSubject(request.getParameter("subject"));
-		dto.setContents(request.getParameter("contents"));
-		dto.setPass(request.getParameter("pass"));
-		//테스트
-		//out.print(dto.getName());
+		GuestDAO dao = GuestDAO.getInstance();
 		
-		int row = dao.boardWrite(dto);
-/*	
-		if(row==1)
-			response.sendRedirect("board_list");
-		else
-			response.sendRedirect("board_write");
-*/			
-
+		int row = dao.guestDelete(idx, pass);
 		
 		request.setAttribute("row", row);
 		
 		RequestDispatcher rd = 
-				request.getRequestDispatcher("Board/board_write_pro.jsp");
+				request.getRequestDispatcher("Guest/guest_delete_pro.jsp");
 		rd.forward(request, response);
-
 	}
 
 }
+

@@ -4,19 +4,20 @@
 <%
 	int row = (int)request.getAttribute("row");
 
+	
 	if(row==1){
 %>
 	<script>
-		alert("등록되었습니다.");
-		location.href="board_list";
-	</script>	
+		opener.location.href="guest_list";
+		self.close();
+	</script>
 <%
 	}else{
 %>	
 	<script>
-		alert("등록실패");
+		alert("비밀번호가 맞지 않습니다");
 		history.back();
-	</script>	
+	</script>
 <%
 	}
 %>

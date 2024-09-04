@@ -32,11 +32,12 @@ public class BoardListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		BoardDAO dao=BoardDAO.getInstance();
+		BoardDAO dao = BoardDAO.getInstance();
 		//총게시글 수
-		int totcount=dao.boardCount();
+		int totcount = dao.boardCount();
+		
 		//전체 게시글 목록
-		List<BoardDTO>list = dao.boardList();
+		List<BoardDTO> list = dao.boardList();
 		
 		request.setAttribute("totcount", totcount);
 		request.setAttribute("list", list);
@@ -55,4 +56,3 @@ public class BoardListServlet extends HttpServlet {
 	}
 
 }
-

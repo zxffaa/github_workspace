@@ -7,28 +7,28 @@
     <link rel="stylesheet" type="text/css" href="/stylesheet.css">
 <script>
 	function send(){
-		if(!guest.name.value){
+		if(!board.name.value){
  			alert("이름을 입력하세요");
- 			guest.name.focus();
+ 			board.name.focus();
  			return;
  		}
- 		if(!guest.subject.value){
+ 		if(!board.subject.value){
  			alert("제목을 입력하세요");
- 			guest.subject.focus();
+ 			board.subject.focus();
  			return;
  		}
- 		if(!guest.contents.value){
+ 		if(!board.contents.value){
  			alert("내용을 입력하세요");
- 			guest.contents.focus();
+ 			board.contents.focus();
  			return;
  		}
- 		if(!guest.pass.value){
+ 		if(!board.pass.value){
  			alert("비밀번호을 입력하세요");
- 			guest.pass.focus();
+ 			board.pass.focus();
  			return;
  		}
  		
- 		guest.submit();
+ 		board.submit();
  		
  	}
 

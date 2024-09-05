@@ -83,5 +83,6 @@
     </td>
   </tr>
   </table>
+  <%@ include file="/Include/copyright.jsp" %>
   </body>
   </html>

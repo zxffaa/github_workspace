@@ -7,7 +7,7 @@ public class UserDTO {
 	private String tel;			//전화
 	private String email;		//이메일
 	private String first_time;	//가입일자
-	private String last_tim;	//마지막 로그인 날자
+	private String last_time;	//마지막 로그인 날자
 	
 	
 	public String getName() {
@@ -46,11 +46,11 @@ public class UserDTO {
 	public void setFirst_time(String first_time) {
 		this.first_time = first_time;
 	}
-	public String getLast_tim() {
-		return last_tim;
+	public String getLast_time() {
+		return last_time;
 	}
-	public void setLast_tim(String last_tim) {
-		this.last_tim = last_tim;
+	public void setLast_time(String last_time) {
+		this.last_time = last_time;
 	}
 	
 

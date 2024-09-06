@@ -29,7 +29,7 @@
       <%if(session.getAttribute("user")==null){ %>
      <p align="center"><font color="white" size="2"><b><a href="user_insert" class="white">회원가입</a></b></font></p>
      <%}else{ %>
-     <p align="center"><font color="white" size="2"><b><a href="" class="white">정보수정</a></b></font></p>
+     <p align="center"><font color="white" size="2"><b><a href="user_modify" class="white">정보수정</a></b></font></p>
      <%} %>
      </td>
      <td bgcolor="#9966ff" width="10%" onmouseover="style.backgroundColor='#2772D3'" onmouseout="style.backgroundColor=''">

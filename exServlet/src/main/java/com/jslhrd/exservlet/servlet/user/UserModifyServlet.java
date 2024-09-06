@@ -9,20 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jslhrd.exservlet.model.user.UserDAO;
+import com.jslhrd.exservlet.model.guest.GuestDAO;
+import com.jslhrd.exservlet.model.guest.GuestDTO;
+import com.jslhrd.exservlet.model.user.*;
 
 /**
- * Servlet implementation class UserIdCheckServlet
+ * Servlet implementation class UserModifyServlet
  */
-//아이디중복체크
-@WebServlet("/user_id_check")
-public class UserIdCheckServlet extends HttpServlet {
+@WebServlet("/user_modify")
+public class UserModifyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserIdCheckServlet() {
+    public UserModifyServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,9 +32,12 @@ public class UserIdCheckServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		RequestDispatcher rd = 
-				request.getRequestDispatcher("User/user_id_check.jsp");
+		String  userid=request.getParameter("userid");
+		UserDAO dao = UserDAO.getInstance();
+		UserDTO dto = dao.userSelect(userid);
+		request.setAttribute("dto", dto);
+		
+		RequestDispatcher rd=request.getRequestDispatcher("User/user_modify.jsp");
 		rd.forward(request, response);
 	}
 
@@ -42,21 +46,20 @@ public class UserIdCheckServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String userid = request.getParameter("userid");
+		UserDTO dto = new UserDTO();
+
+		dto.setPasswd(request.getParameter("passwd"));
+		dto.setTel(request.getParameter("tel"));
+		dto.setLast_time(request.getParameter("last_time"));
 		
 		UserDAO dao = UserDAO.getInstance();
-		
-		int row = dao.userIdCheck(userid);
-		//row=1 => 중복된 id, row=0 => 사용가능한 id
+
+		int row = dao.userModify(dto);
+
 		request.setAttribute("row", row);
-		request.setAttribute("userid", userid);
-		
-		RequestDispatcher rd = 
-				request.getRequestDispatcher("User/user_id_check.jsp");
+
+		RequestDispatcher rd = request.getRequestDispatcher("User/user_modify_pro.jsp");
 		rd.forward(request, response);
-		
-	
-	
 	}
 
 }

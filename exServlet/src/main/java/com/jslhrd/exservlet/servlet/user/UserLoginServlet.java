@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.jslhrd.exservlet.model.user.UserDAO;
+import com.jslhrd.exservlet.model.user.*;
 import com.jslhrd.exservlet.util.UserSHA256;
 
 /**
@@ -32,8 +32,16 @@ public class UserLoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("User/user_login.jsp");
-		rd.forward(request, response);
+		//세션유무판단
+		HttpSession session=request.getSession();
+		if(session.getAttribute("user")!=null) {
+		//세션이 있는경우
+		response.sendRedirect("index")	;
+		}else {
+		//세션이 없는경우
+			RequestDispatcher rd = request.getRequestDispatcher("User/user_login.jsp");
+			rd.forward(request, response);
+		}
 	}
 
 	/**
@@ -46,14 +54,20 @@ public class UserLoginServlet extends HttpServlet {
 		String passwd=UserSHA256.getSHA256(request.getParameter("passwd"));
 		int row=dao.userLogin(userid,passwd);
 		if(row==1) {//로그인 성궁
-			//UserDTO dto=dao.userSelect(userid);
+			UserDTO dto=dao.userSelect(userid);
 			//세션생성
+			
 			HttpSession session= request.getSession();
-			session.setAttribute("user", userid);
+			session.setAttribute("user", dto);
 			session.setMaxInactiveInterval(1800);
+			
 		}
+		
 		request.setAttribute("row", row);
+		/*
 		RequestDispatcher rd = request.getRequestDispatcher("User/user_login_pro.jsp");
+		*/
+		RequestDispatcher rd = request.getRequestDispatcher("User/user_login_ok.jsp");
 		rd.forward(request, response);
 		
 	}

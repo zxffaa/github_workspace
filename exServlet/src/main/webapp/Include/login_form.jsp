@@ -8,6 +8,9 @@
  </head>
 
  <body>
+ <%if(session.getAttribute("user")==null){ %>
+     <p align="center"><font color="white" size="2"><b><a href="user_insert" class="white">회원가입</a></b></font></p>
+    
    <table width="200" height="120" border="0">
    <form name="login_form" action="" method="post" >
      <tr>
@@ -33,10 +36,13 @@
      </tr>
  </form>
  </table>
+ <%
+ 	}else{ 
+ %>
  <table width="100%" height="120" border="0">
    <tr>
      <td bgcolor="#6FA0E" align="center" height="20">
-       <font size="2" color="white">홍길동 님!</font>
+       <font size="2" color="white">${user.name}님!</font>
      </td>
    </tr>
    <tr>
@@ -66,5 +72,8 @@
      </td>
    </tr>
  </table>
+ <% 
+ 	}
+ %>
  </body>
  </html>

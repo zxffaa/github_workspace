@@ -20,6 +20,24 @@ public class UserDAO {
 	//메소드 정의
 	
 	//아이디중복체크
+	public int userIdCheck(String userid) {
+		int row=0;
+		String sql="select count(*) from tbl_user where userid=?";
+		try {
+			conn=DBManager.getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, userid);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				row=rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+		DBManager.close(conn, pstmt, rs);	
+		}
+		return row;
+	}
 	//회원가입
 	public int userWrite(UserDTO dto) {
 		// 반환타입
@@ -79,7 +97,51 @@ public class UserDAO {
 		}
 		return row;
 	}
+	//특정 userid을 이용한 회원검색,수정
+	public UserDTO userSelect(String userid) {
+		UserDTO dto=new UserDTO();
+		String sql="select * from tbl_user where userid=?";
+		try {
+			conn=DBManager.getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, userid);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+			dto.setName(rs.getString("name"));
+			dto.setUserid(rs.getString("userid"));
+			dto.setTel(rs.getString("tel"));
+			dto.setEmail(rs.getString("email"));
+			dto.setFirst_time(rs.getString("first_time"));
+			dto.setLast_time(rs.getString("last_time"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBManager.close(conn, pstmt, rs);
+		}
+		return dto;
+	} 
 	//정보변경
+	public int userModify(UserDTO dto) {
+
+		String sql = "update tbl_user set passwd=?,tel=?,Last_time where userid=?";
+		int row=0;
+		try {
+			conn = DBManager.getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getPasswd());
+			pstmt.setString(2, dto.getTel());
+			pstmt.setString(3, dto.getLast_time());
+			row=pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt);
+		}
+		return row;
+	}
+	
+	
 	//회원전체목록확인-관리자
 	//특정회원검색-관리자:전화번호,아이디,
 	//회원삭제

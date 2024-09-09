@@ -1,4 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page import="java.util.*, com.jslhrd.exservlet.model.pds.*"%>
+<%@ include file="/Include/topmenu.jsp" %>
+<% 
+	int totcount=(int)request.getAttribute("totcount");
+	List<PdsDTO>list=(List)request.getAttribute("list");
+	String search = (String)request.getAttribute("search");
+	String key = (String)request.getAttribute("key");
+%>
 
 <html>
    <head>
@@ -16,6 +24,7 @@
       <td width="20%" height="500" valign="top" bgcolor="#ecf1ef">
 
 <!--  다음에 추가할 부분 -->
+<%@ include file="/Include/login_form.jsp" %>
 </td>
 
 	  <td width="80%" valign="top">	
@@ -37,26 +46,31 @@
         <td width="10%" align="center" height="20"><font face="돋움" size="2">올린이</font></td>
         <td width="11%" align="center" height="20"><font face="돋움" size="2">날짜</font></td>
         <td width="5%" align="center" height="20"><font face="돋움" size="2">조회</font></td></tr>
-
+<% 
+	if(list.size()==0){
+%>
+		<tr onMouseOver="style.backgroundColor='#D1EEEE'" onMouseOut="style.backgroundColor=''">
+        <td align="center" height="25">
+        <font face="돋움" size="2" color="#000000">등록된자료가 없습니다</font>
+        </td>
+		
+	  </tr>	
+<% 
+	}
+	for(PdsDTO dto:list){
+%>
       <tr onMouseOver="style.backgroundColor='#D1EEEE'" onMouseOut="style.backgroundColor=''">
         <td align="center" height="25">
-        <font face="돋움" size="2" color="#000000">15</font></td>
-		<td align="left" height="20">&nbsp;<font face="돋움" size="2">좋은하루 되세요</font></td>
-        <td align="center" height="20"><font face="돋움" size="2">test.zip</td>
-		<td align="left" height="20"><font face="돋움" size="2">홍길동</font></td>
-		<td align="left" height="20"><font face="돋움" size="2">2007-10-11</font></td>
-		<td align="center" height="20"><font face="돋움" size="2">1</font></td> 	      
+        <font face="돋움" size="2" color="#000000"><%=dto.getIdx()%></font></td>
+		<td align="left" height="20">&nbsp;<font face="돋움" size="2"><a class="list" href="pds_view?idx=<%= dto.getIdx() %>"><%= dto.getSubject() %></font></td>
+        <td align="center" height="20"><font face="돋움" size="2"><%=dto.getFilename()%></td>
+		<td align="left" height="20"><font face="돋움" size="2"><%=dto.getName()%></font></td>
+		<td align="left" height="20"><font face="돋움" size="2"><%=dto.getRegdate() %></font></td>
+		<td align="center" height="20"><font face="돋움" size="2"><%=dto.getReadcnt()%></font></td> 	      
 	  </tr>  	   
-      <tr onMouseOver="style.backgroundColor='#D1EEEE'" onMouseOut="style.backgroundColor=''">
-        <td align="center" height="25">
-        <font face="돋움" size="2" color="#000000">14</font></td>
-		<td align="left" height="20">&nbsp;<font face="돋움" size="2">우리들의 이야기</font></td>
-        <td align="center" height="20"><font face="돋움" size="2">&nbsp;</td>
-		<td align="left" height="20"><font face="돋움" size="2">홍길동</font></td>
-		<td align="left" height="20"><font face="돋움" size="2">2007-10-09</font></td>
-		<td align="center" height="20"><font face="돋움" size="2">3</font></td> 	      
-	  </tr>  	
-	  
+   <% 
+	}
+   %>
       <tr>
        <td colspan="7"><hr width="100%"></td></tr>
 	   <tr>
@@ -65,26 +79,28 @@
 		</tr>
    <tr>
       <td colspan="7" align="right">
-				<img src="./img/write.gif" alt="자료등록" align="middle" border="0"></a>
+				<a href="pds_write"><img src="./img/write.gif" alt="자료등록" align="middle" border="0"></a>
       &nbsp;
 	  </td>
    </tr>
 
      <table border="0" cellspacing="0" width="100%">
+      <form name="pds" method="post" action="/pds_list">
       <tr>
       <td><center>
       <font color="#004080" size="4" face="Courier New"><strong>Search&nbsp;</strong></font>
         <select name="search" size="1" style="font-family: 돋움체">
-		   <option>글제목</option>
-		   <option>작성자</option>
-		   <option>글내용</option>
+		   <option value="subject"<% if(search.equals("subject")) { %> selected <% } %> >글제목</option>
+		   <option value="name"<% if(search.equals("name")) { %> selected <% } %>>작성자</option>
+		   <option value="contents" <% if(search.equals("contents")) { %> selected <% } %>></option>
 		</select>
-		&nbsp;&nbsp;<input type="text" name="query" size="20">
-		&nbsp;&nbsp;<input type="image" src="./img/search2.gif" align="middle">
+		&nbsp;&nbsp;<input type="text" name="key" size="20" value="<%= key %>">
+		&nbsp;&nbsp;<a href="javascript:send()"><input type="image" src="./img/search2.gif" align="middle"></a>
 	   </td>
 	   </tr>
     </table>
    </table>
+   <%@ include file="/Include/copyright.jsp" %>
 	</td></tr>
 </body>
 

@@ -65,7 +65,7 @@
 		<td align="left" height="20">&nbsp;<font face="돋움" size="2"><a class="list" href="pds_view?idx=<%= dto.getIdx() %>"><%= dto.getSubject() %></font></td>
         <td align="center" height="20"><font face="돋움" size="2"><%=dto.getFilename()%></td>
 		<td align="left" height="20"><font face="돋움" size="2"><%=dto.getName()%></font></td>
-		<td align="left" height="20"><font face="돋움" size="2"><%=dto.getRegdate() %></font></td>
+		<td align="left" height="20"><font face="돋움" size="2"><%=dto.getRegdate().substring(0, 10) %></font></td>
 		<td align="center" height="20"><font face="돋움" size="2"><%=dto.getReadcnt()%></font></td> 	      
 	  </tr>  	   
    <% 

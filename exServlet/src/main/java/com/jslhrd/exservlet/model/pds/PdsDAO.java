@@ -69,6 +69,7 @@ public class PdsDAO {
 				pds.setSubject(rs.getString("subject"));
 				pds.setContents(rs.getString("contents"));
 				pds.setReadcnt(rs.getInt("readcnt"));
+				pds.setRegdate(rs.getString("regdate"));
 				pds.setFilename(rs.getString("filename"));
 				list.add(pds);
 			}
@@ -95,6 +96,7 @@ public class PdsDAO {
 				pds.setSubject(rs.getString("subject"));
 				pds.setContents(rs.getString("contents"));
 				pds.setReadcnt(rs.getInt("readcnt"));
+				pds.setRegdate(rs.getString("regdate"));
 				pds.setFilename(rs.getString("filename"));
 				list.add(pds);
 			}
@@ -173,7 +175,9 @@ public class PdsDAO {
 	//8.특정글 수정
 	public int pdsModify(PdsDTO dto) {
 		int row=0;
-		String sql="update tbl_pds set email=?,subject=?, contents=?, filename=? where idx=? and pass=?";
+		
+		String sql="update tbl_pds set email=?, subject=?, contents=?, filename=? "
+													+ "	where idx=? and pass=?";
 		try {
 			conn = DBManager.getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -183,6 +187,7 @@ public class PdsDAO {
 			pstmt.setString(4, dto.getFilename());
 			pstmt.setInt(5, dto.getIdx());
 			pstmt.setString(6, dto.getPass());
+			
 			row = pstmt.executeUpdate();
 			
 		}catch(Exception e) {
@@ -192,4 +197,5 @@ public class PdsDAO {
 		}
 		return row;
 	}
+
 }

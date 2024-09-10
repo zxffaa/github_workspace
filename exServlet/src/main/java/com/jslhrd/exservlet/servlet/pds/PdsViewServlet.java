@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jslhrd.exservlet.model.guest.GuestDAO;
 import com.jslhrd.exservlet.model.pds.PdsDAO;
 import com.jslhrd.exservlet.model.pds.PdsDTO;
 
@@ -48,14 +47,14 @@ public class PdsViewServlet extends HttpServlet {
 		}
 		String newValue=""+System.currentTimeMillis();
 		if(!bool) {
-		dao.pdsHits(idx);
 		info=new Cookie("exServletPds"+idx, newValue);
 		info.setMaxAge(60*60);
 		response.addCookie(info);
+		dao.pdsHits(idx);
 		}
 		PdsDTO dto=dao.PdsSelect(idx);
 		dto.setContents(dto.getContents().replace("\n","<br>"));
-		request.setAttribute("dto", dto);
+		request.setAttribute("pds", dto);
 		RequestDispatcher rd = 
 				request.getRequestDispatcher("Pds/pds_view.jsp");
 		

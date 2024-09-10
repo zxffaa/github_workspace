@@ -48,7 +48,7 @@
      <img src="./Pds/img/bullet-03.gif"><font size="2" face="돋움" color="orange"> 잠깐</font> &nbsp;
      <img src="./Pds/img/bullet-02.gif"><font size="2" face="돋움">는 필수 입력 사항입니다.</font><p>
 	<form name="pds" method="post" enctype="multipart/form-data"
-					action="pds_write_pro.jsp">
+					action="pds_write">
 	  <table border="0" >
 		<tr>
          <td width="5%" align="right"><img src="./Pds/img/bullet-02.gif"></td>

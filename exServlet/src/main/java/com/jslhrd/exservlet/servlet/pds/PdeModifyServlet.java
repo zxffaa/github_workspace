@@ -20,13 +20,13 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
  * Servlet implementation class PdeModifyServlet
  */
 @WebServlet("/pds_modify")
-public class PdsModifyServlet extends HttpServlet {
+public class PdeModifyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PdsModifyServlet() {
+    public PdeModifyServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,12 +36,13 @@ public class PdsModifyServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int idx = Integer.parseInt(request.getParameter("idx"));
+		int nowpage = Integer.parseInt(request.getParameter("page"));
 
-		PdsDAO pDAO = PdsDAO.getinstance();
+		PdsDAO pDAO = PdsDAO.getInstance();
 
-		PdsDTO pds = pDAO.PdsSelect(idx);
+		PdsDTO pds = pDAO.pdsSelect(idx);
 		request.setAttribute("pds", pds);
-
+		request.setAttribute("page", nowpage);
 		RequestDispatcher rd = 
 				request.getRequestDispatcher("/Pds/pds_modify.jsp");
 		rd.forward(request, response);
@@ -87,7 +88,7 @@ public class PdsModifyServlet extends HttpServlet {
 				a1.delete();
 		}
 
-		PdsDAO pDao = PdsDAO.getinstance();
+		PdsDAO pDao = PdsDAO.getInstance();
 		int row = pDao.pdsModify(pVo);
 		
 		if(row==1) {//성공

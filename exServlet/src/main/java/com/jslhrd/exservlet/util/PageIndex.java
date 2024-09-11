@@ -2,7 +2,9 @@ package com.jslhrd.exservlet.util;
 import java.net.URLEncoder;
 
 public class PageIndex {
+	//현재페이지번호, 총페이지, 서블릿파일
 	public static String pageList(int page,int totpage,String url,String addtag) {
+		
 		int idx_pre, idx_start;
 		  	
 		String s_pre = "";    // Prev 저장 변수

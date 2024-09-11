@@ -51,13 +51,11 @@ td   { font-family: 돋움, Verdana; font-size: 9pt; text-decoration: none; colo
 
 <table border="0" width="800">
 <tr>
-
   <td width="20%"  bgcolor="#ecf1ef" valign="top" style="padding-left:0;">
 	
 	<!--로그인 영역 삽입-->
 	<%@ include file="/Include/login_form.jsp" %>
   </td>
-  
   <td width="80%" valign="top">&nbsp;<img src="/User/img/title1.gif" ><br>    
 	<form name="user" method=post action="/user_modify">
 	<table border=0 cellpadding=0 cellspacing=0 border=0 width=730 valign=top>
@@ -157,7 +155,8 @@ td   { font-family: 돋움, Verdana; font-size: 9pt; text-decoration: none; colo
 </tr>
 </table>
 
-  <%@ include file="/Include/copyright.jsp" %>
+ <!-- copyright 영역 삽입-->
+  
 
 </body>
 </html>

@@ -9,7 +9,6 @@ public class UserDTO {
 	private String first_time;	//가입일자
 	private String last_time;	//마지막 로그인 날자
 	
-	
 	public String getName() {
 		return name;
 	}
@@ -52,6 +51,4 @@ public class UserDTO {
 	public void setLast_time(String last_time) {
 		this.last_time = last_time;
 	}
-	
-
 }

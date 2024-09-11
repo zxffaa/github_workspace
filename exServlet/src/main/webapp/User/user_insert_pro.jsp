@@ -7,8 +7,8 @@
 	if(row==1){
 %>
 	<script>
-		alert("회원가입이 되었습니다");
-		location.href="index";
+		alert("회원가입되었습니다");
+		location.href="/index";
 	</script>
 <%
 	}else{

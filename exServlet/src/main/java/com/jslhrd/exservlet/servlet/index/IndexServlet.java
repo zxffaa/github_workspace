@@ -27,10 +27,10 @@ public class IndexServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		RequestDispatcher rd =
-				request.getRequestDispatcher("index.jsp");
+				request.getRequestDispatcher("/index.jsp");
 		rd.forward(request, response);
 	
 	}

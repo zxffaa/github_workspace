@@ -32,33 +32,36 @@ public class PdsViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int idx=Integer.parseInt(request.getParameter("idx"));
-		PdsDAO dao=PdsDAO.getinstance();
+		int idx = Integer.parseInt(request.getParameter("idx"));
+		int nowpage=Integer.parseInt(request.getParameter("page"));
 		
-		boolean bool=false;
-		Cookie info=null;
-		Cookie[] cookies=request.getCookies();
-		for(int x=0;x<cookies.length;x++) {
-			info=cookies[x];
-			if(info.getName().equals("exServletPds"+idx)) {
-				bool=true;
+		PdsDAO pDao = PdsDAO.getInstance();
+		boolean found =false;
+		Cookie info = null;
+		Cookie[] cookies = request.getCookies();
+
+		for(int i=0;i<cookies.length;i++){
+			info=cookies[i];
+			if(info.getName().equals("pdsCookie"+idx)){
+				found=true;
 				break;
 			}
-		}
+		}//for문의 끝
 		String newValue=""+System.currentTimeMillis();
-		if(!bool) {
-		info=new Cookie("exServletPds"+idx, newValue);
-		info.setMaxAge(60*60);
-		response.addCookie(info);
-		dao.pdsHits(idx);
-		}
-		PdsDTO dto=dao.PdsSelect(idx);
-		dto.setContents(dto.getContents().replace("\n","<br>"));
-		request.setAttribute("pds", dto);
-		RequestDispatcher rd = 
-				request.getRequestDispatcher("Pds/pds_view.jsp");
+		 
+		if(!found) {  //쿠키가 없으면(내용을 처음보는 경우)
+			info=new Cookie("pdsCookie" + idx,newValue); //쿠키 생성
+			response.addCookie(info); //생성된 쿠키를 넘김
+			pDao.pdsHits(idx);				//조회수를 1증가
+		}//if문의 종료
 		
-		rd.forward(request, response);
+		PdsDTO pVO = pDao.pdsSelect(idx);
+
+		request.setAttribute("pds", pVO);
+		request.setAttribute("page", nowpage);
+
+		RequestDispatcher d = request.getRequestDispatcher("Pds/pds_view.jsp");
+		d.forward(request, response);
 	}
 
 	/**

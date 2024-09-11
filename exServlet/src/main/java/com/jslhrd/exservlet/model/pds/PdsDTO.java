@@ -1,28 +1,27 @@
 package com.jslhrd.exservlet.model.pds;
 
 public class PdsDTO {
-	private int idx;
-	private String name;
-	private String pass;
-	private String email;
-	private String subject;
-	private String contents;
-	private String regdate;
-	private int readcnt;
-	private String filename;
+	private int idx;		//글번호(기본키)
+	private String pass;	//작성자 비번
+	private String name;	//작성자이름
+	private String email;	//이메일
+	private String subject;	//글 제목
+	private String contents;//글 내용
+	private String regdate;//글 작성일자
+	private int readcnt;//글 조회수
+	private String filename; // 첨부파일명
 	
-	
-	public String getPass() {
-		return pass;
-	}
-	public void setPass(String pass) {
-		this.pass = pass;
-	}
 	public int getIdx() {
 		return idx;
 	}
 	public void setIdx(int idx) {
 		this.idx = idx;
+	}
+	public String getPass() {
+		return pass;
+	}
+	public void setPass(String pass) {
+		this.pass = pass;
 	}
 	public String getName() {
 		return name;
@@ -66,6 +65,4 @@ public class PdsDTO {
 	public void setFilename(String filename) {
 		this.filename = filename;
 	}
-	
-
 }

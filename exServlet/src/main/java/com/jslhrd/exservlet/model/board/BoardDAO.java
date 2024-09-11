@@ -177,7 +177,8 @@ public class BoardDAO {
 				dto.setSubject(rs.getString("subject"));
 				dto.setContents(rs.getString("contents"));
 				dto.setRegdate(rs.getString("regdate"));
-				dto.setReadcnt(rs.getInt("readcnt"));		
+				dto.setReadcnt(rs.getInt("readcnt"));
+				//dto.setPass(rs.getString("pass"));
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -211,8 +212,27 @@ public class BoardDAO {
 		return row;
 	}
 
-	
 	//삭제
+	public int boardDelete(BoardDTO dto) {
+		int row=0;
+		
+		String sql="delete from tbl_board where idx=? and pass=?";
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, dto.getIdx());
+			pstmt.setString(2, dto.getPass());
+			
+			row = pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBManager.close(conn, pstmt);
+		}
+		return row;
+	}
+
 	public int boardDelete(int idx, String pass) {
 		int row=0;
 		

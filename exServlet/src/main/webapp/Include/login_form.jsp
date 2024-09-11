@@ -8,9 +8,9 @@
  </head>
 
  <body>
- <%if(session.getAttribute("user")==null){ %>
-     <p align="center"><font color="white" size="2"><b><a href="user_insert" class="white">회원가입</a></b></font></p>
-    
+ <%
+	if(session.getAttribute("user") == null){
+%>  
    <table width="200" height="120" border="0">
    <form name="login_form" action="" method="post" >
      <tr>
@@ -29,20 +29,21 @@
        </td>
      </tr>
      <tr>
-       <td><input type="image" src="./Include/img/login1.gif" border="0" onClick="return check_login()"></td>
+       <td><input type="image" src="/Include/img/login1.gif" border="0" onClick="return check_login()"></td>
 			 <td>
-           <a href=""><img src="./Include/img/regist.gif" border="0"></a>
+           <a href=""><img src="/Include/img/regist.gif" border="0"></a>
        </td>
      </tr>
  </form>
  </table>
- <%
- 	}else{ 
- %>
+<%
+	}else{
+%>
+ 
  <table width="100%" height="120" border="0">
    <tr>
      <td bgcolor="#6FA0E" align="center" height="20">
-       <font size="2" color="white">${user.name}님!</font>
+       <font size="2" color="white">홍길동 님!</font>
      </td>
    </tr>
    <tr>
@@ -58,7 +59,7 @@
  <table width="100%" height="120" border="0">
    <tr>
      <td bgcolor="#6FA0E" align="center" height="20">
-       <font size="2" color="white">홍길동민 님!</font>
+       <font size="2" color="white">${user.name}민 님!</font>
      </td>
    </tr>
    <tr>
@@ -72,8 +73,8 @@
      </td>
    </tr>
  </table>
- <% 
- 	}
- %>
+<%
+	}
+%> 
  </body>
  </html>

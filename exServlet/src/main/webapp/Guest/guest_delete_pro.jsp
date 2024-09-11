@@ -4,9 +4,8 @@
 <%
 	int row = (int)request.getAttribute("row");
 
-	
 	if(row==1){
-%>
+%>    
 	<script>
 		opener.location.href="guest_list";
 		self.close();
@@ -15,7 +14,7 @@
 	}else{
 %>	
 	<script>
-		alert("비밀번호가 맞지 않습니다");
+		alert("비밀번호가 맞지 않습니다.");
 		history.back();
 	</script>
 <%

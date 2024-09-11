@@ -5,30 +5,6 @@
  <html>
    <head><title>방명록 수정</title>
     <link rel="stylesheet" type="text/css" href="/stylesheet.css">
-   <script>
- 	function send(){
- 		if(!guest.subject.value){
- 			alert("제목을 입력하세요");
- 			guest.subject.focus();
- 			return;
- 		}
- 		if(!guest.contents.value){
- 			alert("내용을 입력하세요");
- 			guest.contents.focus();
- 			return;
- 		}
- 		if(!guest.pass.value){
- 			alert("비밀번호을 입력하세요");
- 			guest.pass.focus();
- 			return;
- 		}
- 		
- 		guest.submit();	
- 	} 
- </script>
-
-
-
 
 </head>
 
@@ -51,10 +27,10 @@
 	<input type="hidden" name="idx" value="${dto.idx}">
       <table border="0">
        <tr>
-         <td width="5%" align="right"><img src="./img/bullet-02.gif"></td>
+         <td width="5%" align="right"><img src="./Guest/img/bullet-02.gif"></td>
          <td width="15%"><font size="2" face="돋움">글쓴이</font></td>
          <td width="80%">
-         <input type="text" size="20" name="name" value="${dto.name}"readonly="readonly"></td>
+         <input type="text" size="20" name="name" value="${dto.name}" readonly></td>
        </tr>
        <tr>
          <td align="right"><img src="./Guest/img/bullet-02.gif"></td>
@@ -64,16 +40,16 @@
        <tr>
          <td align="right"><img src="./Guest/img/bullet-02.gif"></td>
          <td><font size="2" face="돋움">내용</font></td>
-         <td><textarea wrap="physical" rows="10" name="contents" cols="60">${dto.contents}</textarea></td>
+         <td><textarea wrap="physical" rows="10" name="contents" cols="60" >${dto.contents}</textarea></td>
        </tr>
        <tr>
          <td align="right"><img src="./Guest/img/bullet-02.gif"></td>
          <td><font size="2" face="돋움">비밀번호</font></td>
-         <td><input type="password" name="pass"></td>
+         <td><input type="password" size="20" name="pass"></td>
        </tr>
         <tr>
           <td align="right">&nbsp;</td>
-          <<td><font size="2">&nbsp;</font></td>
+          <td><font size="2">&nbsp;</font></td>
           <td><input type="button" value="수정하기" onClick="send()">&nbsp;
           <input type="button" value="돌아가기" onClick="history.back()"></td></tr>
       </table>
@@ -82,4 +58,29 @@
   </table>
   </body>
   </html>
+  
+   <script>
+ 	function send(){
+ 		if(!guest.subject.value){
+ 			alert("제목을 입력하세요");
+ 			guest.subject.focus();
+ 			return;
+ 		}
+ 		if(!guest.contents.value){
+ 			alert("내용을 입력하세요");
+ 			guest.contents.focus();
+ 			return;
+ 		}
+ 		if(!guest.pass.value){
+ 			alert("비밀번호을 입력하세요");
+ 			guest.pass.focus();
+ 			return;
+ 		}
+ 		
+ 		guest.submit();
+ 		
+ 	}
+ 
+ </script>
+  
    

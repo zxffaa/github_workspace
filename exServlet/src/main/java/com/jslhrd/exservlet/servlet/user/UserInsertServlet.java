@@ -9,57 +9,59 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jslhrd.exservlet.model.user.*;
+import com.jslhrd.exservlet.model.user.UserDAO;
+import com.jslhrd.exservlet.model.user.UserDTO;
 import com.jslhrd.exservlet.util.UserSHA256;
 
 /**
  * Servlet implementation class UserJoinServlet
  */
+//회원가입
 @WebServlet("/user_insert")
-public class UserJoinServlet extends HttpServlet {
+public class UserInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public UserInsertServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
-	 * @see HttpServlet#HttpServlet()
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	public UserJoinServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("User/user_insert.jsp");
+		RequestDispatcher rd =
+				request.getRequestDispatcher("User/user_insert.jsp");
 		rd.forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UserDAO dao = UserDAO.getInstance();
 		UserDTO dto = new UserDTO();
-
+				
 		request.setCharacterEncoding("utf-8");
-
+		
 		dto.setName(request.getParameter("name"));
 		dto.setUserid(request.getParameter("userid"));
 		dto.setPasswd(UserSHA256.getSHA256(request.getParameter("passwd")));
 		dto.setTel(request.getParameter("tel"));
-
+		
 		int row = dao.userWrite(dto);
-
+		
 		request.setAttribute("row", row);
 
-		RequestDispatcher rd = request.getRequestDispatcher("User/user_insert_pro.jsp");
+		RequestDispatcher rd =
+				request.getRequestDispatcher("User/user_insert_pro.jsp");
 		rd.forward(request, response);
-
+		
+		
 	}
 
 }

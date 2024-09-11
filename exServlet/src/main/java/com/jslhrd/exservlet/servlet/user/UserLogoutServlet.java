@@ -53,4 +53,3 @@ public class UserLogoutServlet extends HttpServlet {
 	}
 
 }
-

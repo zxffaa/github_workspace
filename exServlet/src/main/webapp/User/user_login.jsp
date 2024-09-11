@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+
 <%@ include file="/Include/topmenu.jsp" %>
 
 <HTML>
@@ -13,30 +14,31 @@ td   { font-family: 돋움, Verdana; font-size: 9pt; text-decoration: none; colo
 //-->
 </STYLE>
 <script>
-function send() {
-	if(!user.userid.value){
-		alert("아이디를 입력하세요");
-		user.userid.focus();
-		return;
+	function send(){
+		if(!user.userid.value){
+			alert("아이디를 입력하세요");
+			user.userid.focus();
+			return;
+		}
+		if(!user.passwd.value){
+			alert("비밀번호를 입력하세요");
+			user.passwd.focus();
+			return;
+		}
+		user.submit();
 	}
-	if(!user.passwd.value){
-		alert("비밀번호를 입력하세요");
-		user.passwd.focus();
-		return;
-	}
-	user.submit();
-}
 </script>
 </HEAD>
 <body bgcolor="#FFFFFF" text="#000000" leftmargin=0 
-  topmargin=0 onLoad='document.user.user_id.focus();'>
+  topmargin=0 onLoad='document.user.userid.focus();'>
 
 <table border="0" width="800">
 <tr>
   <td width="20%"  bgcolor="#ecf1ef" valign="top" style="padding-left:0;">
-<%@ include file="/Include/login_form.jsp" %>
-	<!--로그인 영역 삽입--> 
 
+	<!--로그인 영역 삽입--> 
+	<%@ include file="/Include/login_form.jsp" %>
+	
   </td>
   <td width="80%" valign="top">&nbsp;<img src="./User/img/title1.gif" ><br>    
 <TABLE width="683" border="0" cellspacing="0" cellpadding="0" height="265">
@@ -53,7 +55,7 @@ function send() {
 				<td bgcolor="7aaad5"> 
 				 <div align="center"><font color="#FFFFFF"><b>Member Login</b></font></div>
 				 </td>
-				 <td width="9"><img src="./User/img/f_b03.gif" width="9" height="21"></td>
+				 <td width="9"><img src="/User/img/f_b03.gif" width="9" height="21"></td>
 			  </tr>
 			 </table>
 			 <table border="0" cellpadding="0" cellspacing="0" width="550">
@@ -77,7 +79,7 @@ function send() {
 							  <td>: 
 								<input type=password name="passwd" size=14 maxlength=12 STYLE="WIDTH:155">
 							  </td>
-							  <td><img type=image src="./User/img/login.gif" border=0 align=absmiddle onClick="send()"></td>
+							  <td><img src="./User/img/login.gif" border=0 align=absmiddle onClick="send()"></td>
 							</tr>
 						  </table>
 						</td>
@@ -124,7 +126,7 @@ function send() {
 				  <td bgcolor="7aaad5" width="612"> 
 					<div align="center"></div>
 				  </td>
-				  <td width="10"><img src="img/h_b05.gif" width="12" height="11"></td>
+				  <td width="10"><img src="./User/img/h_b05.gif" width="12" height="11"></td>
 				</tr>
 			  </table>
 			</td>
@@ -136,7 +138,6 @@ function send() {
 </td>
 </tr>
 </table>
-<%@ include file="/Include/copyright.jsp" %>
 </body>
 </html>
 

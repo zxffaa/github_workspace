@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.jslhrd.exservlet.model.board.BoardDAO;
 import com.jslhrd.exservlet.model.board.BoardDTO;
 
+
 /**
  * Servlet implementation class BoardListServlet
  */
@@ -34,17 +35,36 @@ public class BoardListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BoardDAO dao = BoardDAO.getInstance();
 		//총게시글 수
-		int totcount = dao.boardCount();
+		String url = "pds_list";
+		String search = "", key = "";
+		int totcount = 0;  
+		//검색 조건이 포함될경우
+		if(request.getParameter("key") != null && !request.getParameter("key").equals("")) {
+			search = request.getParameter("search");
+			key = request.getParameter("key");
+			totcount = dao.boardCount(search, key);// 총 글수 추출
+		}else {
+			totcount = dao.boardCount();   // 총 글수 추출
+		}
+
+
+		List<BoardDTO> BoardList = null;
+		if(key.equals("")) {
+			BoardList = dao.boardList();
+		}else {
+			BoardList = dao.boardList(search, key);
+		}
 		
-		//전체 게시글 목록
-		List<BoardDTO> list = dao.boardList();
-		
+
 		request.setAttribute("totcount", totcount);
-		request.setAttribute("list", list);
+		request.setAttribute("list", BoardList);
+		request.setAttribute("search", search);
+		request.setAttribute("key", key);
 		
-		RequestDispatcher rd = 
+		RequestDispatcher dispatcher = 
 				request.getRequestDispatcher("Board/board_list.jsp");
-		rd.forward(request, response);
+		dispatcher.forward(request, response);
+	
 	}
 
 	/**
@@ -52,6 +72,7 @@ public class BoardListServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.setCharacterEncoding("utf-8");
 		doGet(request, response);
 	}
 

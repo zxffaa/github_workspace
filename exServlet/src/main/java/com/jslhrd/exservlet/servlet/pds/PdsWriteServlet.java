@@ -12,12 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.jslhrd.exservlet.model.pds.PdsDAO;
 import com.jslhrd.exservlet.model.pds.PdsDTO;
-import com.jslhrd.exservlet.util.UserSHA256;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 /**
- * Servlet implementation class PdsWriteServlet
+ * Servlet implementation class PdsWrite
  */
 @WebServlet("/pds_write")
 public class PdsWriteServlet extends HttpServlet {
@@ -35,7 +34,9 @@ public class PdsWriteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd=request.getRequestDispatcher("/Pds/pds_write.jsp");
+
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/Pds/pds_write.jsp");
 		rd.forward(request, response);
 	}
 
@@ -44,40 +45,41 @@ public class PdsWriteServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		PdsDAO dao=PdsDAO.getinstance();
-		PdsDTO dto=new PdsDTO();
+		//서버상의 실제 경로 찾기
+		ServletContext context = getServletContext();
+		String path = context.getRealPath("Pds/upload");
+		//System.out.println("서버상의 실제 경로 : " + path);//
 		
+		String encType = "UTF-8";
+		int sizeLimit = 2 * 1024 * 1024;//최대 2MB
+		MultipartRequest multi = new MultipartRequest(request, path, sizeLimit,
+				encType, new DefaultFileRenamePolicy());
+		//new DefaultFileRenamePolicy()파일중복처리(a.bm 중복시-> a1.bmp)
+
+		String name = multi.getParameter("name");
+		String pass = multi.getParameter("pass");
+		String subject = multi.getParameter("subject");
+		String contents = multi.getParameter("contents");
+		String filename = multi.getFilesystemName("filename");
 		
-		ServletContext context=getServletContext();
-		//파일저장경로
-		String path=context.getRealPath("Pds/upload");
-		String encType="UTF-8";
-		int maxSize=5*1024*1024;//저장용량(2M)
-	
-		//기본 지정
-		MultipartRequest multi=new MultipartRequest(request,path,maxSize,encType,new DefaultFileRenamePolicy());
-		//파일 중복시 이름을 바꿔서 추가해준다
-		//new DefaultFileRenamePolicy()
-		dto.setName(multi.getParameter("name"));
-		String passwd=UserSHA256.getSHA256(request.getParameter("passwd"));
-		dto.setPass(passwd);
-		dto.setSubject(multi.getParameter("subject"));
-		dto.setContents(multi.getParameter("contents"));
-		dto.setFilename(multi.getFilesystemName("filename"));
+		PdsDTO pVo = new PdsDTO();
+		pVo.setName(name);
+		pVo.setPass(pass);
+		pVo.setSubject(subject);
+		pVo.setContents(contents);
+		pVo.setFilename(filename);
 		
-			
-		int row=dao.pdsWrite(dto);
-		if(row==1) {
-			request.setAttribute("row",1);
-		}else {
-			request.setAttribute("row",0);
+		PdsDAO pDao = PdsDAO.getInstance();
+		int row = pDao.pdsWrite(pVo);
+		
+		if(row==1) {//성공
+			request.setAttribute("row", 1);
+		}else {//실패
+			request.setAttribute("row", 0);
 		}
-		
-		
-		RequestDispatcher dd = 
-				request.getRequestDispatcher("/Pds/pds_write_pro.jsp");
-		dd.forward(request, response);
-			
+
+		RequestDispatcher d = request.getRequestDispatcher("Pds/pds_write_pro.jsp");
+		d.forward(request, response);
 	}
 
 }

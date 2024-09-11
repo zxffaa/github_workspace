@@ -16,12 +16,13 @@ td   { font-family: 돋움, Verdana; font-size: 9pt; text-decoration: none; colo
 --->
 </STYLE>
 <script>
-//아이디 중복체크
-function id_check() {
-	var url="/user_id_check"
-	window.open(url,"id_check","width=350 height=250");
+	//아이지 중복검사
+	function id_check(){
+		var url="user_id_check";
+		window.open(url,"id_check","width=350 height=250");
+		//window.open("/user_id_check","id_check","width=350 height=250");
+	}
 	
-}
 	function send(){
 		//이름
 		if(!user.name.value){
@@ -74,12 +75,12 @@ function id_check() {
 	<%@ include file="/Include/login_form.jsp" %>
   </td>
   <td width="80%" valign="top">&nbsp;<img src="./User/img/title1.gif" ><br>    
-	<form name="user" method=post action="user_insert">
+	<form name="user" method=post action="/user_insert">
 	<table border=0 cellpadding=0 cellspacing=0 border=0 width=730 valign=top>
 		<tr><td align=center><br>                            
 			<table cellpadding=0 cellspacing=0 border=0 width=650 align=center>       
 				<tr>
-					<td>            
+					<td bgcolor="#7AAAD5">            
 						<table cellpadding=0 cellspacing=0 border=0 width=100%>
 							<tr bgcolor=#7AAAD5>
 								<td align=left BORDER="0" HSPACE="0" VSPACE="0"><img src="./User/img/u_b02.gif"></td>
@@ -100,7 +101,7 @@ function id_check() {
 									<table cellspacing=0 cellpadding=0>
 										<tr>
 											<td align=absmiddle>
-												<input type=text name=userid size=12 maxlength=16 value="" style="width:120" readonly="readonly">
+												<input type=text name=userid size=12 readonly maxlength=16 value="" style="width:120">
 											</td>
 											<td>
                   								<img src="./User/img/u_bt01.gif" hspace=2 border=0 name=img1  align=absmiddle onClick="id_check()">
@@ -172,7 +173,8 @@ function id_check() {
 </tr>
 </table>
 
-  <%@ include file="/Include/copyright.jsp" %>
+ <!-- copyright 영역 삽입-->
+  
 
 </body>
 </html>

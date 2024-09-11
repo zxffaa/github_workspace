@@ -14,16 +14,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Servlet implementation class PdsDownServlet
+ */
 @WebServlet("/pds_down")
 public class PdsDownServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-     public PdsDownServlet() {
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public PdsDownServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		request.setCharacterEncoding("utf-8");
 		String filename =  request.getParameter("filename"); //파일 이름을 받는다. 
 		//System.out.print(filename);
@@ -58,12 +67,14 @@ public class PdsDownServlet extends HttpServlet {
 		}catch(Exception se){
 			//IllegalStateException
 		}
-
 	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
 }
-

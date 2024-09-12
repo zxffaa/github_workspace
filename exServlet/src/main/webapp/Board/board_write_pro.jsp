@@ -7,7 +7,6 @@
 	if(row==1){
 %>
 	<script>
-		alert("등록되었습니다.");
 		location.href="board_list";
 	</script>	
 <%

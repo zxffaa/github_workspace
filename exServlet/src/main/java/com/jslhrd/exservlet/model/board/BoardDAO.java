@@ -252,5 +252,64 @@ public class BoardDAO {
 		}
 		return row;
 	}
-
+	// 게시글 전체 목록(검색 X, 페이지 처리 추가)
+	public List<BoardDTO> boardList(int startpage,int endpage) {
+		List<BoardDTO> list = new ArrayList<BoardDTO>();
+		
+		String sql="select X.* from (select rownum as rnum, A.* from ("
+				+ "select * from tbl_board order by idx desc) A " + "where rownum <= ?) X where X.rnum >= ? ";
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, endpage);
+			pstmt.setInt(2, startpage);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				BoardDTO dto = new BoardDTO();
+				dto.setIdx(rs.getInt("idx"));
+				dto.setName(rs.getString("name"));
+				dto.setSubject(rs.getString("subject"));
+				dto.setRegdate(rs.getString("regdate"));			
+				dto.setReadcnt(rs.getInt("readcnt"));
+				list.add(dto);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBManager.close(conn, pstmt, rs);
+		}
+		return list;
+	}
+	
+	public List<BoardDTO> boardList(String search,String key, int startpage,int endpage) {
+		List<BoardDTO> list = new ArrayList<BoardDTO>();
+		
+		String sql="select X.* from (select rownum as rnum, A.* from ("
+				+ "select * from tbl_board order by idx desc) A " + "where " + search + " like ? and rownum <= ?) X where " + search + " like ? and X.rnum >= ? ";
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+ key + "%");
+			pstmt.setInt(2, endpage);
+			pstmt.setString(3, "%"+ key + "%");
+			pstmt.setInt(4, startpage);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				BoardDTO dto = new BoardDTO();
+				dto.setIdx(rs.getInt("idx"));
+				dto.setName(rs.getString("name"));
+				dto.setSubject(rs.getString("subject"));
+				dto.setRegdate(rs.getString("regdate"));			
+				dto.setReadcnt(rs.getInt("readcnt"));
+				list.add(dto);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBManager.close(conn, pstmt, rs);
+		}
+		return list;
+	}
+	
+	
 }

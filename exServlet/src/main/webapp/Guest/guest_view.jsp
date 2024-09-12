@@ -1,7 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-
+<%@ page import="java.util.*, com.jslhrd.exservlet.model.guest.*"%>
 <%@ include file="/Include/topmenu.jsp" %>
-
+<% 
+	GuestDTO dto=(GuestDTO)request.getAttribute("dto");
+%>
 
  <html>
  <head><meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
@@ -12,6 +14,15 @@
      td.content { padding:10px; line-height:1.6em; text-align:justify; }
      a.list { text-decoration:none;color:black;font-size:10pt; }
    </style>
+ <script>
+   	function guest_del(){
+   		url = "guest_delete?idx="+${dto.idx}+"&page="+${page};
+   		window.open(url,"게시판 삭제","width=300, height=200");
+   	}
+   
+   </script>  
+   
+   
  </head>
  <body topmargin="0" leftmargin="0">
    <table border="0" width="800">

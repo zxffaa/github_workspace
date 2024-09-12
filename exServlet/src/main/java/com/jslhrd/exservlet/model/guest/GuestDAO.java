@@ -283,6 +283,69 @@ public class GuestDAO {
 		}
 		return row;
 	}
-
-	
+	public List<GuestDTO> guestList(int startpage,int endpage) {
+		//반환타입
+		List<GuestDTO> list = new ArrayList();
+		
+		String sql="select X.* from (select rownum as rnum, A.* from ("
+				+ "select * from tbl_guest order by idx desc) A " + "where rownum <= ?) X where X.rnum >= ? ";
+		
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, endpage);
+			pstmt.setInt(2, startpage);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				GuestDTO guest = new GuestDTO();
+				guest.setIdx(rs.getInt("idx"));
+				guest.setName(rs.getString("name"));
+				guest.setSubject(rs.getString("subject"));
+				guest.setRegdate(rs.getString("regdate"));
+				guest.setReadcnt(rs.getInt("readcnt"));
+				
+				list.add(guest);
+			}
+		
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBManager.close(conn, pstmt, rs);
+		}
+		return list;
+	}
+	public List<GuestDTO> guestList(String search,String key, int startpage,int endpage) {
+		//반환타입
+		List<GuestDTO> list = new ArrayList<GuestDTO>();
+		
+		String sql="select X.* from (select rownum as rnum, A.* from ("
+				+ "select * from tbl_guest order by idx desc) A " + "where " + search + " like ? and rownum <= ?) X where " + search + " like ? and X.rnum >= ? ";
+		
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+ key + "%");
+			pstmt.setInt(2, endpage);
+			pstmt.setString(3, "%"+ key + "%");
+			pstmt.setInt(4, startpage);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				GuestDTO guest = new GuestDTO();
+				guest.setIdx(rs.getInt("idx"));
+				guest.setName(rs.getString("name"));
+				guest.setSubject(rs.getString("subject"));
+				guest.setRegdate(rs.getString("regdate"));
+				guest.setReadcnt(rs.getInt("readcnt"));
+				list.add(guest);
+			}
+		
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBManager.close(conn, pstmt, rs);
+		}
+		return list;
+	}
 }

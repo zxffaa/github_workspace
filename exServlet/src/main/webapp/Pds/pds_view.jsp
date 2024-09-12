@@ -53,7 +53,7 @@
            <font size="2" face="돋움">${pds.subject}</font></td></tr>
 		<tr>  
 			<td class="content">
-				<p align="right"><font size="2" face="돋움">${pds.name} / ${pds.regdate} / ${pds.regdate}번 읽음
+				<p align="right"><font size="2" face="돋움">${pds.name} / ${pds.regdate} / ${pds.readcnt}번 읽음
 			    <p> ${pds.contents}</p>
 			<% if(pds.getFilename() != null) { %>	
 				<img src="/Pds/img/disk.gif" align="middle" width="22" height="20" border="0">&nbsp;

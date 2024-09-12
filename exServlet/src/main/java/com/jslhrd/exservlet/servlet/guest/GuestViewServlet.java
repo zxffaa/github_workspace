@@ -34,7 +34,7 @@ public class GuestViewServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int idx = Integer.parseInt(request.getParameter("idx"));
-		
+		int nowpage=Integer.parseInt(request.getParameter("page"));
 		GuestDAO dao = GuestDAO.getInstance();
 		
 		//쿠키 확인
@@ -62,7 +62,7 @@ public class GuestViewServlet extends HttpServlet {
 		dto.setContents(dto.getContents().replace("\n", "<br>"));
 		
 		request.setAttribute("dto", dto);
-		
+		request.setAttribute("page", nowpage);
 		RequestDispatcher rd = 
 				request.getRequestDispatcher("Guest/guest_view.jsp");
 		

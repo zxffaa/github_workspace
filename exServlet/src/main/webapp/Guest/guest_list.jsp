@@ -5,11 +5,9 @@
 
 <%
 	//request내장객체에 저장된 값 받기
-	int totcount = (int)request.getAttribute("totcount");
 	List<GuestDTO> list = (List)request.getAttribute("list");
-	
 	String search = (String)request.getAttribute("search");
-	String key = (String)request.getAttribute("key");
+	int listcount=(int)request.getAttribute("listcount");
 
 %>
 <html>
@@ -18,17 +16,7 @@
 <style type="text/css">
   a.list {text-decoration:none;color:black;font-size:10pt;}
 </style>
-<script>
-	function send(){
-		if(!guest.key.value){
-			alert("검색어를 입력하세요");
-			guest.key.focus();
-			return;
-		}
-		guest.submit();
-	}
 
-</script>
 </head>
 <body bgcolor="#FFFFFF" topmargin="0" leftmargin="0">
 <table border="0" width="800">
@@ -47,7 +35,7 @@
         <img src="./Guest/img/bullet-01.gif"> <b>방 명 록</b></font></td></tr>
       <tr>
         <td colspan="5" align="right" valign="middle" height="20">
-		<font size="2" face="고딕">전체 : <%= totcount %></b>건 - 3 Pages</font></td></tr>
+		<font size="2" face="고딕">전체 :<b>${totcount}</b>건 ${totpage}/ ${page}</font></td></tr>
  	   <tr bgcolor="e3e9ff">
  	      <td width="10%"align="center" height="20"><font face="돋움" size="2">번호</font></td>
  	      <td width="50%" align="center" height="20"><font face="돋움" size="2">제목</font></td>
@@ -68,7 +56,7 @@
 	for(GuestDTO dto : list){
 %>      
 		<tr onMouseOver="style.backgroundColor='#D1EEEE'" onMouseOut="style.backgroundColor=''">
-          <td align="center" height="25"><font face="돋움" size="2" color="#000000"><%= dto.getIdx() %></font></td>
+          <td align="center" height="25"><font face="돋움" size="2" color="#000000"><%= listcount-- %></font></td>
           <td align="left" height="20"><font face="돋움" size="2" color="#000000"><a class="list" href="guest_view?idx=<%= dto.getIdx() %>"><%= dto.getSubject() %></a></td>
           <td align="center" height="20"><font face="돋움" size="2">
                 <a class="list" href="mailto:ein1027@nate.com"><%= dto.getName() %></a></font></td>

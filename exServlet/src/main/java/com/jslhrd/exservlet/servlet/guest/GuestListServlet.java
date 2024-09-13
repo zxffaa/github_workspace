@@ -34,8 +34,8 @@ public class GuestListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//DB 연결
 		GuestDAO dao = GuestDAO.getInstance();
-		
-		String search="", key="";
+		String url="guest_list";
+		String search="", key="",addtag="";
 		int totcount = 0;
 		List<GuestDTO> list = null;
 		

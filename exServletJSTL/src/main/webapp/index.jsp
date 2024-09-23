@@ -17,7 +17,8 @@
    <table border="0" width="800">
      <tr>
        <td width="20%"  bgcolor="#ecf1ef" valign="top" style="padding-left:0;">
-			왼쪽 메뉴
+		<%@ include file="/Include/login_form.jsp" %>
+		
 		 <!--  다음에 추가할 부분 -->
 
 	   </td>
@@ -113,6 +114,7 @@
 				<td align="center" height="20"><font face="돋움" size="2">
 				3</font></td>
 		</tr>
+		
   		</table>
   	<hr>	
 	<table border="0" cellspacing="1" width="100%" align="center">
@@ -167,6 +169,4 @@
   </table>
   </body>
   </html>
-
-  하단 메뉴
-
+<%@ include file="/Include/copyright.jsp" %>

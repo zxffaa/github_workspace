@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-
+<%@ include file="/Include/topmenu.jsp" %>
 <html>
    <head>
       <title> 자료실 리스트 보기 </title>
@@ -16,6 +16,7 @@
       <td width="20%" height="500" valign="top" bgcolor="#ecf1ef">
 
 <!--  다음에 추가할 부분 -->
+<%@ include file="/Include/login_form.jsp" %>
 </td>
 
 	  <td width="80%" valign="top">	
@@ -87,4 +88,4 @@
    </table>
 	</td></tr>
 </body>
-
+<%@ include file="/Include/copyright.jsp" %>

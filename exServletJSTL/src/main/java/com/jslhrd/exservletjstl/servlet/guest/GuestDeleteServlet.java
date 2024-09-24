@@ -14,7 +14,7 @@ import com.jslhrd.exservletjstl.model.guest.GuestDAO;
 /**
  * Servlet implementation class GuestDeleteServlet
  */
-@WebServlet("/guest_delete")
+@WebServlet("/guest_delete.do")
 public class GuestDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

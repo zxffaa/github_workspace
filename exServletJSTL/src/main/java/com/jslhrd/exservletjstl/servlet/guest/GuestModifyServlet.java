@@ -15,7 +15,7 @@ import com.jslhrd.exservletjstl.model.guest.GuestDTO;
 /**
  * Servlet implementation class GuestModifyServlet
  */
-@WebServlet("/guest_modify")
+@WebServlet("/guest_modify.do")
 public class GuestModifyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

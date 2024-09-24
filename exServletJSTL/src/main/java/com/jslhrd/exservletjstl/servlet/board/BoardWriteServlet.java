@@ -32,7 +32,7 @@ public class BoardWriteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-	
+		
 		RequestDispatcher rd = 
 				request.getRequestDispatcher("Board/board_write.jsp");
 		rd.forward(request, response);

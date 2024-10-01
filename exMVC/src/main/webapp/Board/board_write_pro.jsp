@@ -6,7 +6,7 @@
 <c:if test="${row==1 }">
 	<script>
 		alert("등록되었습니다");
-		location.href="board_list.do?page=${page}";
+		location.href="/Board?cmd=board_list&page=${page}";
 	</script>
 </c:if>
 

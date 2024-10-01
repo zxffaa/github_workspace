@@ -1,4 +1,4 @@
-package com.jslhrd.exmvc.service.guest;
+package com.jslhrd.exmvc.service.board;
 
 import java.io.IOException;
 
@@ -7,24 +7,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jslhrd.exmvc.model.guest.GuestDAO;
 import com.jslhrd.exmvc.service.Action;
 
-public class GuestDeleteProAction implements Action {
+public class BoardDeleteAction implements Action {
 
 	@Override
 	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		int idx = Integer.parseInt(request.getParameter("idx"));
-		String pass = request.getParameter("pass");
-
-		GuestDAO dao = GuestDAO.getInstance();
-
-		int row = dao.guestDelete(idx, pass);
-
-		request.setAttribute("row", row);
-
-		RequestDispatcher rd = request.getRequestDispatcher("Guest/guest_delete_pro.jsp");
+		int nowpage = Integer.parseInt(request.getParameter("page"));
+		request.setAttribute("idx", idx);
+		request.setAttribute("page", nowpage);
+		RequestDispatcher rd = request.getRequestDispatcher("/Board/board_delete.jsp");
 		rd.forward(request, response);
 
 	}

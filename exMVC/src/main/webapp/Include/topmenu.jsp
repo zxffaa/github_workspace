@@ -12,7 +12,7 @@
  <table border="0" cellspacing="2" bgcolor="#ecf1ef" width="900" bordercolordark="#ffffff" bordercolorlight="#000000">
    <tr>
      <td width="20%" rowspan="4" valign="bottom" bgcolor="#000000">
-       <a href="/Include/index.jsp"><img src="/Include/img/ceo.jpg" width="200" height="83" border="0"></a>
+       <a href="index.jsp"><img src="/Include/img/ceo.jpg" width="200" height="83" border="0"></a>
        <font style="font-size:9pt;color:white;font-family:돋움"><b>Total 136,489
        <font color="yellow"></font>
        | Now 178

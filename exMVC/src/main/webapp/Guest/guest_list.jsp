@@ -56,7 +56,7 @@
    <c:forEach var="guest" items="${list}">
 	  <tr onMouseOver="style.backgroundColor='#D1EEEE'" onMouseOut="style.backgroundColor=''">
           <td align="center" height="25"><font face="돋움" size="2" color="#000000">${guest.idx}</font></td>
-          <td align="left" height="20"><font face="돋움" size="2" color="#000000"><a class="list" href="guest_view.do?idx=${guest.idx}">${guest.subject}</a></font></td>
+          <td align="left" height="20"><font face="돋움" size="2" color="#000000"><a class="list" href="/Guest?cmd=guest_view&idx=${guest.idx}">${guest.subject}</a></font></td>
           <td align="center" height="20"><font face="돋움" size="2">
                 <a class="list" href="mailto:ein1027@nate.com">${guest.name}</a></font></td>
           <td align="center" height="20"><font face="돋움" size="2">${guest.regdate.substring(0,10)}</font></td>
@@ -78,7 +78,7 @@
 			<td width="25%"> &nbsp;</td>
 			<td width="50%" align="center">
 				<table>
-					<form name="guest" method="post" action="guest_list.do">	
+					<form name="guest" method="post" action="/Guest?cmd=guest_list">	
 					<!-- 검색어를 이용하여 글제목, 작성자, 글내용 중에 하나를 입력 받아 처리하기 위한 부분 -->
 						<tr>
 							<td>

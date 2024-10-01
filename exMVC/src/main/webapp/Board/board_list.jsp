@@ -64,7 +64,7 @@
 			<font face="돋움" size="2" color="#000000">${listcount}</font></td>
 			<td align="left" height="20">&nbsp;
 				<font face="돋움" size="2" color="#000000">
-				<a class="list" href="board_view.do?idx=${board.idx}&page=${page}">${board.subject}</a></td>
+				<a class="list" href="/Board?cmd=board_view&idx=${board.idx}&page=${page}">${board.subject}</a></td>
 					<td align="center" height="20"><font face="돋움" size="2">
 					<a class="list" href="mailto:ein1027@nate.com">${board.name}</a></font></td>
 				<td align="center" height="20"><font face="돋움" size="2">${board.regdate}</font></td>
@@ -89,7 +89,7 @@
 			<td width="25%"> &nbsp;</td>
 			<td width="50%" align="center">
 				<table>
-					<form name="board" method="post" action="guest_list.do">	
+					<form name="board" method="post" action="/Board?cmd=board_list">	
 					<!-- 검색어를 이용하여 글제목, 작성자, 글내용 중에 하나를 입력 받아 처리하기 위한 부분 -->
 						<tr>
 							<td>
@@ -106,7 +106,7 @@
 				</table>
 			</td>
 			<td width="25%" align="right">
-			<a href="/board_write.do?page=${page}"><img src="/Board/img/write.gif" border="0"></a>
+			<a href="/Board?cmd=board_write&page=${page}"><img src="/Board/img/write.gif" border="0"></a>
 			</td>
 		</tr>
 	</table>

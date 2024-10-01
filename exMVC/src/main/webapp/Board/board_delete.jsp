@@ -15,7 +15,7 @@
  </script>
  </head>
  <body>
- <form name="board" method="post" action="guest_delete.do">
+ <form name="board" method="post" action="/Board?cmd=board_delete_pro">
  <input type="hidden" name="idx" value="${idx}">
  <input type="hidden" name="page" value="${page}">
    <table border="0" cellpadding="0" cellspacing="0" width="300" align="center">

@@ -5,9 +5,9 @@
 
 <c:if test="${row==1 }">
 	<script>
-		alert("삭제되었습니다");
+		//alert("삭제되었습니다");
 		//location.href="guest_list.do?page=${page}"";
-		opener.location.replace("board_list.do?page=${page}");
+		opener.location.replace("/Board?cmd=board_list&page=${page}");
 		//opener.location.href="guest_list.do";
 		self.close();
 	</script>

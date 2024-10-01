@@ -1,7 +1,6 @@
-package com.jslhrd.exmvc.controller.guest;
+package com.jslhrd.exmvc.controller.board;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,19 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.jslhrd.exmvc.service.Action;
-import com.jslhrd.exmvc.service.guest.*;
 
 /**
- * Servlet implementation class GuestController
+ * Servlet implementation class BoardController
  */
-@WebServlet("/Guest")
-public class GuestController extends HttpServlet {
+@WebServlet("/Board")
+public class BoardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GuestController() {
+    public BoardController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,26 +29,12 @@ public class GuestController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String cmd=request.getParameter("cmd");
-		//System.out.println("GuestController에서 요청을 받음:"+cmd);
-		Action action=null;
-		if(cmd.equals("guest_list")) {
-			action=new GuestListAction();
-		}else if(cmd.equals("guest_write")) {
-			action=new GuestWriteAction();
-		}else if(cmd.equals("guest_write_pro")) {
-			action=new GuestWriteProAction();
-		}else if(cmd.equals("guest_view")) {
-			action=new GuestViewAction();
-		}else if(cmd.equals("guest_modify")) {
-			action=new GuestModifyAction();
-		}else if(cmd.equals("guest_modify_pro")) {
-			action=new GuestModifyProAction();
-		}else if(cmd.equals("guest_delete")) {
-			action=new GuestDeleteAction();
-		}else if(cmd.equals("guest_delete_pro")) {
-			action=new GuestDeleteProAction();
+		System.out.println(cmd);
+		BoardActionFactory bf=BoardActionFactory.getInstance();
+		Action action =bf.getAction(cmd);
+		if(action!=null) {
+			action.process(request, response);
 		}
-		action.process(request, response);
 	}
 
 	/**
@@ -58,7 +42,7 @@ public class GuestController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		doGet(request,response);
+		doGet(request, response);
 	}
 
 }

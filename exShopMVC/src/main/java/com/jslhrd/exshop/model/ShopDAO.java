@@ -67,7 +67,39 @@ public class ShopDAO {
 		
 		return list;
 	}
+	//회원전체목록
+	public List<MemberCityDTO> memList(){
+		List<MemberCityDTO>list=new ArrayList<MemberCityDTO>();
+		String sql="select custno,custname,phone,gender,joindate,grade,cityname from tbl_member m, tbl_city c where m.city=c.city";
 
-	
-	
+		try {
+			conn=DBManager.getConnection();
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				MemberDTO mDTO=new MemberDTO();
+				CityDTO cDTO=new CityDTO();
+				MemberCityDTO mcDTO=new MemberCityDTO();
+				mDTO.setCustno(rs.getInt("custno"));
+				mDTO.setCustname(rs.getString("custname"));
+				mDTO.setPhone(rs.getString("phone"));
+				mDTO.setGender(rs.getString("gender"));
+				mDTO.setJoindate(rs.getString("joindate"));
+				mDTO.setGrade(rs.getString("grade"));
+				
+				cDTO.setCityname(rs.getString("cityname"));
+				
+				mcDTO.setMember(mDTO);
+				mcDTO.setCity(cDTO);
+				list.add(mcDTO);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}finally {
+			DBManager.close(conn, pstmt, rs);
+		}
+		
+		return list;
+	}
 }
